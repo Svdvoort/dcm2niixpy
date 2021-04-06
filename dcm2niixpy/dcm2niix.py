@@ -2,44 +2,366 @@ import re
 import os
 from spython.main import Client
 from typing import Dict, Union
+import spython.utils
+import shutil
 
 
 class DCM2NIIX:
-    def __init__(self) -> None:
+    def __init__(self, container_backend="singularity", version=None) -> None:
         self.SINGULARITY_KEYWORD = "singularity"
         self.DOCKER_KEYWORD = "docker"
-        self.root_singularity_url = "library://svdvoort/default/dcm2niix"
-        self.version = "1.0.20210317"
+        self.SINGULARITY_ROOT_URL = "library://svdvoort/default/dcm2niix"
+        self.DOCKER_ROOT_URL = "svdvoort/dcm2niix"
+        if version is not None:
+            # TODO check whether the version is actually able for use
+            self.version = version
+        else:
+            self.version = "latest"
 
-        self.container_runner = self.SINGULARITY_KEYWORD
-        self.singularity_url = self.root_singularity_url + ":" + self.version
-
-        self.compression_level = 6
-        self.adjacent_dicom = False
+        self.container_backend = container_backend
+        self.container_url = self._construct_container_url()
 
         self.options: Dict[str, str] = {}
+
+        self.compression_level = 6
+        self.adjacent_dicoms = False
+        self.bids_sidecar = True
+        self.anonymize_bids_sidecar = True
+        self.directory_search_depth = 5
+        self.export_as_nrrd = False
+        self.filename = "%f_%p_%t_%s"
+        self.generate_defaults = False
+        self.ignore_derived = False
+        self.losslessly_scale = False
+        self.merge_2d_slices = "auto"
+
         self.compress = False
+
+    def _check_singularity_installation(self) -> bool:
+        return spython.utils.check_install()
+
+    def _construct_container_url(self) -> str:
+        if self.container_backend == self.SINGULARITY_KEYWORD:
+            return self.SINGULARITY_ROOT_URL + ":" + self.version
+        elif self.container_backend == self.DOCKER_KEYWORD:
+            return self.DOCKER_ROOT_URL + ":" + self.version
+        else:
+            return ""
+
+    @property
+    def container_backend(self) -> str:
+        return self._container_backend
+
+    @container_backend.setter
+    def container_backend(self, container_backend: str) -> None:
+        if container_backend not in [self.DOCKER_KEYWORD, self.SINGULARITY_KEYWORD]:
+            raise NotImplementedError(
+                "Container backend should be either 'docker' or 'singularity'. You passed {input}".format(
+                    input=container_backend
+                )
+            )
+
+        if container_backend == self.SINGULARITY_KEYWORD:
+            # Check whether singularity is installed locally
+            has_singularity = self._check_singularity_installation()
+            if not has_singularity:
+                raise OSError(
+                    "You have attempted to run with 'singularity' container backend, but singularity is not installed"
+                )
+            else:
+                self._container_backend = self.SINGULARITY_KEYWORD
+        elif container_backend == self.DOCKER_KEYWORD:
+            has_docker = shutil.which(self.DOCKER_KEYWORD) is not None
+            if not has_docker:
+                raise OSError(
+                    "You have attempted to run with 'docker' container backend, but docker is not installed"
+                )
+            else:
+                self._container_backend = self.DOCKER_KEYWORD
+
+    def _convert_settings(self, conversion_index: dict, setting):
+        if setting in conversion_index:
+            return conversion_index[setting]
+        else:
+            return setting
+
+    def _check_valid_setting(self, setting_name: str, valid_settings: list, setting):
+        if setting not in valid_settings:
+            err_msg = "{setting_name} setting should be one of '{valid_settings}', you passed {input}".format(
+                setting_name=setting_name,
+                valid_settings=valid_settings.join(","),
+                input=setting,
+            )
+
+    @property
+    def compression_level(self) -> str:
+        return self.options["compression_level"]
+
+    @compression_level.setter
+    def compression_level(self, setting: Union[str, int]) -> None:
+        "gz compression level (1=fastest..9=smallest, default 6)"
+        settings_conversion = {
+            1: "1",
+            2: "2",
+            3: "3",
+            4: "4",
+            5: "5",
+            6: "6",
+            7: "7",
+            8: "8",
+            9: "9",
+        }
+
+        valid_settings = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Compression level", valid_settings, setting)
+
+        self.options["compression_level"] = setting
+
+    @property
+    def adjacent_dicoms(self) -> str:
+        "Adjacent DICOMs (images from same series always in same folder) for faster conversion (n/y, default n)"
+        return self.options["-a"]
+
+    @adjacent_dicoms.setter
+    def adjacent_dicoms(self, setting: Union[str, bool]) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Adjacent DICOM", valid_settings, setting)
+
+        self.options["-a"] = setting
+
+    @property
+    def bids_sidecar(self) -> str:
+        "BIDS sidecar (y/n/o [o=only: no NIfTI], default y)"
+        return self.options["-b"]
+
+    @bids_sidecar.setter
+    def bids_sidecar(self, setting: Union[str, bool]):
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n", "o"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("BIDS sidecar", valid_settings, setting)
+
+        self.options["-b"] = setting
+
+    @property
+    def anonymize_bids_sidecar(self) -> str:
+        "anonymize BIDS (y/n, default y)"
+        return self.options["-ba"]
+
+    @anonymize_bids_sidecar.setter
+    def anonymize_bids_sidecar(self, setting: Union[str, bool]) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Anonymize BIDS sidecar", valid_settings, setting)
+
+        self.options["-ba"] = setting
+
+    @property
+    def comments_in_aux(self) -> str:
+        "comment stored in NIfTI aux_file (provide up to 24 characters e.g. '-c first_visit')"
+        if "-c" in self.options:
+            return self.options["-c"]
+        else:
+            return None
+
+    @comments_in_aux.setter
+    def comments_in_aux(self, setting: str) -> None:
+        self.options["-c"] = setting
+
+    @property
+    def directory_search_depth(self) -> str:
+        "directory search depth. Convert DICOMs in sub-folders of in_folder? (0..9, default 5)"
+        return self.options["-d"]
+
+    @directory_search_depth.setter
+    def directory_search_depth(self, setting: Union[str, int]) -> None:
+        settings_conversion = {
+            1: "1",
+            2: "2",
+            3: "3",
+            4: "4",
+            5: "5",
+            6: "6",
+            7: "7",
+            8: "8",
+            9: "9",
+        }
+        valid_settings = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Directory search depth", valid_settings, setting)
+
+        self.options["-d"] = setting
+
+    @property
+    def export_as_nrrd(self) -> str:
+        "export as NRRD instead of NIfTI (y/n, default n)"
+        return self.options["-e"]
+
+    @export_as_nrrd.setter
+    def export_as_nrrd(self, setting: Union[str, bool]) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Export as NRRD", valid_settings, setting)
+
+        self.options["-e"] = setting
+
+    @property
+    def filename(self) -> str:
+        "filename (%a=antenna (coil) name, %b=basename, %c=comments, %d=description, %e=echo number, %f=folder name, %i=ID of patient, %j=seriesInstanceUID, %k=studyInstanceUID, %m=manufacturer, %n=name of patient, %o=mediaObjectInstanceUID, %p=protocol, %r=instance number, %s=series number, %t=time, %u=acquisition number, %v=vendor, %x=study ID; %z=sequence name; default '%f_%p_%t_%s')"
+        return self.options["-f"]
+
+    @filename.setter
+    def filename(self, setting: str) -> None:
+        self.options["-f"] = setting
+
+    @property
+    def generate_defaults(self) -> str:
+        "generate defaults file (y/n/o/i [o=only: reset and write defaults; i=ignore: reset defaults], default n)"
+        return self.options["-g"]
+
+    @generate_defaults.setter
+    def generate_defaults(self, setting) -> str:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n", "o", "i"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Generate defaults", valid_settings, setting)
+
+        self.options["-g"] = setting
+
+    @property
+    def ignore_derived(self) -> str:
+        "ignore derived, localizer and 2D images (y/n, default n)"
+        return self.options["-i"]
+
+    @ignore_derived.setter
+    def ignore_derived(self, setting) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Ignore derived", valid_settings, setting)
+
+        self.options["-i"] = setting
+
+    @property
+    def losslessly_scale(self) -> str:
+        "losslessly scale 16-bit integers to use dynamic range (y/n/o [yes=scale, no=no, but uint16->int16, o=original], default n)"
+        return self.options["-l"]
+
+    @losslessly_scale.setter
+    def losslessly_scale(self, setting) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n", "o"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Losslessly scale", valid_settings, setting)
+
+        self.options["-l"] = setting
+
+    @property
+    def merge_2d_slices(self) -> str:
+        "merge 2D slices from same series regardless of echo, exposure, etc. (n/y or 0/1/2, default 2) [no, yes, auto]"
+        return self.options["-m"]
+
+    @merge_2d_slices.setter
+    def merge_2d_slices(self, setting) -> None:
+        settings_conversion = {True: "y", False: "n", 0: "0", 1: "1", 2: "2", "auto": "2"}
+        valid_settings = ["y", "n", "0", "1", "2"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Merge 2D slices", valid_settings, setting)
+
+        self.options["-m"] = setting
+
+    @property
+    def convert_only_this_crc(self) -> str:
+        "only convert this series CRC number - can be used up to 16 times (default convert all)"
+        if "-n" in self.options:
+            return self.options["-n"]
+        else:
+            return None
+
+    @convert_only_this_crc.setter
+    def convert_only_this_crc(self, setting) -> None:
+        self.options["-n"] = setting
+
+    @property
+    def output_directory(self) -> None:
+        "output directory (omit to save to input folder)"
+        if "-o" in self.options:
+            return self.options["-o"]
+        else:
+            return None
+
+    @output_directory.setter
+    def output_directory(self, setting: str) -> None:
+        if not os.path.exists(setting):
+            os.makedirs(setting)
+        self.options["-o"] = setting
+
+    @property
+    def philips_precise_float_scaling(self) -> str:
+        "Philips precise float (not display) scaling (y/n, default y)"
+        return self.options["-p"]
+
+    @philips_precise_float_scaling.setter
+    def philips_precise_float_scaling(self, setting: Union[str, bool]) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Philips precise float scaling", valid_settings, setting)
+
+        self.options["-p"] = setting
 
     @property
     def compress(self) -> str:
         return self.options["-z"]
 
     @compress.setter
-    def compress(self, compress_setting: Union[bool, str, int]) -> None:
+    def compress(self, setting: Union[bool, str, int]) -> None:
         settings_conversion = {True: "y", False: "n", 3: "3"}
-        if compress_setting in settings_conversion:
-            compress_setting = settings_conversion[compress_setting]
-
         valid_settings = ["y", "o", "i", "n", "3"]
-        if compress_setting not in valid_settings:
-            raise TypeError(
-                "Compress setting should be one of {valid_settings}, you passed {input}".format(
-                    valid_settings=valid_settings,
-                    input=compress_setting,
-                ),
-            )
 
-        self.options["-z"] = compress_setting
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Compression", valid_settings, setting)
+
+        self.options["-z"] = setting
+
+    def _convert_options_to_arg_list(self) -> list:
+        arg_list = []
+        for i_key, i_val in self.options.items():
+            if i_key[0] == "-":
+                arg_list.append(i_key)
+                arg_list.append(i_val)
+            else:
+                arg_list.append("-" + i_val)
+
+        return arg_list
 
     def convert(self, input_path: str, output_path: str = None, options: list = None):
         if output_path is None:
@@ -47,12 +369,13 @@ class DCM2NIIX:
         if options is None:
             options = []
 
-        options = [*self.default_options, *options]
-        command_line_args = [*options, "-o", "/output", "/input"]
+        arg_list = self._convert_options_to_arg_list()
+
+        command_line_args = [*arg_list, "-o", "/output", "/input"]
 
         bindings = self._make_input_output_binding(input_path, output_path)
 
-        output = Client.run(self.singularity_url, command_line_args, bind=bindings, stream=True)
+        output = Client.run(self.container_url, command_line_args, bind=bindings, stream=True)
 
         output_info = DCM2NIIX_OUTPUT()
         output_info.parse_output(output)
