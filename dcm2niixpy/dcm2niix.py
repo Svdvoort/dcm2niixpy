@@ -1,33 +1,45 @@
 import re
 import os
 from spython.main import Client
+from typing import Dict, Union
 
 
 class DCM2NIIX:
-    def __init__(self, default_options: list = None) -> None:
+    def __init__(self) -> None:
+        self.SINGULARITY_KEYWORD = "singularity"
+        self.DOCKER_KEYWORD = "docker"
         self.root_singularity_url = "library://svdvoort/default/dcm2niix"
         self.version = "1.0.20210317"
+
+        self.container_runner = self.SINGULARITY_KEYWORD
         self.singularity_url = self.root_singularity_url + ":" + self.version
-        if default_options is None:
-            self.default_options = []
-        else:
-            self.default_options = default_options
 
         self.compression_level = 6
         self.adjacent_dicom = False
 
-        # self.bids_sidecar = False
-        # self.anonymize_bids = False
-        # self.comment = None
-        # self.directory_search_depth = 5
-        # self.export_as_nrrd = False
-        # self.filename = "%f_%p_%t_%s"
-        # self.generate_defaults = False
-        # self.ignore_derived = False
-        # self.scale_16_bit = False
-        # self.merge_2D = False
+        self.options: Dict[str, str] = {}
+        self.compress = False
 
-        # self.compress = False
+    @property
+    def compress(self) -> str:
+        return self.options["-z"]
+
+    @compress.setter
+    def compress(self, compress_setting: Union[bool, str, int]) -> None:
+        settings_conversion = {True: "y", False: "n", 3: "3"}
+        if compress_setting in settings_conversion:
+            compress_setting = settings_conversion[compress_setting]
+
+        valid_settings = ["y", "o", "i", "n", "3"]
+        if compress_setting not in valid_settings:
+            raise TypeError(
+                "Compress setting should be one of {valid_settings}, you passed {input}".format(
+                    valid_settings=valid_settings,
+                    input=compress_setting,
+                ),
+            )
+
+        self.options["-z"] = compress_setting
 
     def convert(self, input_path: str, output_path: str = None, options: list = None):
         if output_path is None:
@@ -50,19 +62,6 @@ class DCM2NIIX:
 
     def _make_input_output_binding(self, input_path: str, output_path: str) -> list:
         return [input_path + ":/input", output_path + ":/output"]
-
-    @property
-    def compress(self):
-        self._compress = True
-
-    @compress.setter
-    def compress(self, compress_setting: bool):
-        if not isinstance(compress_setting, bool):
-            raise TypeError(
-                "Compress setting should be a boolean, you passed a {input_type}".format(
-                    input_type=type(compress_setting)
-                )
-            )
 
 
 class DCM2NIIX_OUTPUT:
