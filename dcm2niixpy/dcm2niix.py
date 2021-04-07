@@ -95,19 +95,39 @@ class DCM2NIIX:
 
     def _check_valid_setting(self, setting_name: str, valid_settings: list, setting):
         if setting not in valid_settings:
-            err_msg = "{setting_name} setting should be one of '{valid_settings}', you passed {input}".format(
+            err_msg = "{setting_name} setting should be one of '{valid_settings}', you passed '{input}'".format(
                 setting_name=setting_name,
-                valid_settings=",".join(valid_settings),
+                valid_settings=", ".join(valid_settings),
                 input=setting,
             )
 
+            raise ValueError(err_msg)
+
+    def _check_valid_setting_type(self, setting_name: str, valid_setting_types, setting_type):
+        if setting_type not in valid_setting_types:
+            valid_setting_types = [
+                i_valid_setting.__name__ for i_valid_setting in valid_setting_types
+            ]
+            err_msg = "{setting_name} setting should be one of '{valid_types}', you passed an argument with type '{input_type}'".format(
+                setting_name=setting_name,
+                valid_types=", ".join(valid_setting_types),
+                input_type=setting_type.__name__,
+            )
+
+            raise TypeError(err_msg)
+
+    #########
+    ## Options
+    #########
+
     @property
-    def compression_level(self) -> str:
-        return self.options["compression_level"]
+    def compression_level(self) -> int:
+        "gz compression level (1=fastest..9=smallest, default 6)"
+        return int(self.options["compression_level"])
 
     @compression_level.setter
     def compression_level(self, setting: Union[str, int]) -> None:
-        "gz compression level (1=fastest..9=smallest, default 6)"
+        setting_name = "Compression level"
         settings_conversion = {
             0: "0",
             1: "1",
@@ -123,9 +143,11 @@ class DCM2NIIX:
 
         valid_settings = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
+        self._check_valid_setting_type(setting_name, [str, int], type(setting))
+
         setting = self._convert_settings(settings_conversion, setting)
 
-        self._check_valid_setting("Compression level", valid_settings, setting)
+        self._check_valid_setting(setting_name, valid_settings, setting)
 
         self.options["compression_level"] = setting
 
