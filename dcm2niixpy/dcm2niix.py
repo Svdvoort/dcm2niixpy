@@ -225,6 +225,7 @@ class DCM2NIIX:
     @directory_search_depth.setter
     def directory_search_depth(self, setting: Union[str, int]) -> None:
         settings_conversion = {
+            0: "0",
             1: "1",
             2: "2",
             3: "3",
@@ -235,7 +236,7 @@ class DCM2NIIX:
             8: "8",
             9: "9",
         }
-        valid_settings = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        valid_settings = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
         setting = self._convert_settings(settings_conversion, setting)
 
