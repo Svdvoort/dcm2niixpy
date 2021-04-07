@@ -97,7 +97,7 @@ class DCM2NIIX:
         if setting not in valid_settings:
             err_msg = "{setting_name} setting should be one of '{valid_settings}', you passed {input}".format(
                 setting_name=setting_name,
-                valid_settings=valid_settings.join(","),
+                valid_settings=",".join(valid_settings),
                 input=setting,
             )
 
@@ -109,6 +109,7 @@ class DCM2NIIX:
     def compression_level(self, setting: Union[str, int]) -> None:
         "gz compression level (1=fastest..9=smallest, default 6)"
         settings_conversion = {
+            0: "0",
             1: "1",
             2: "2",
             3: "3",
@@ -120,7 +121,7 @@ class DCM2NIIX:
             9: "9",
         }
 
-        valid_settings = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        valid_settings = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
         setting = self._convert_settings(settings_conversion, setting)
 
