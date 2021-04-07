@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "dcm2niixpy"
 description = "Python package of dcm2niix"
-version = "0.3.0"
+version = "0.3.1"
 license = "MIT"
 
 authors = []
