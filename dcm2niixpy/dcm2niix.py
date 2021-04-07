@@ -87,7 +87,7 @@ class DCM2NIIX:
             else:
                 self._container_backend = self.DOCKER_KEYWORD
 
-    def _convert_settings(self, conversion_index: dict, setting):
+    def _convert_settings(self, conversion_index: dict, setting) -> Union[str, bool, int]:
         if setting in conversion_index:
             return conversion_index[setting]
         else:
@@ -140,10 +140,11 @@ class DCM2NIIX:
             8: "8",
             9: "9",
         }
+        valid_setting_types = [str, int]
 
         valid_settings = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
-        self._check_valid_setting_type(setting_name, [str, int], type(setting))
+        self._check_valid_setting_type(setting_name, valid_setting_types, type(setting))
 
         setting = self._convert_settings(settings_conversion, setting)
 
@@ -152,18 +153,23 @@ class DCM2NIIX:
         self.options["compression_level"] = setting
 
     @property
-    def adjacent_dicoms(self) -> str:
+    def adjacent_dicoms(self) -> bool:
         "Adjacent DICOMs (images from same series always in same folder) for faster conversion (n/y, default n)"
-        return self.options["-a"]
+        settings_conversion = {"y": True, "n": False}
+        return self._convert_settings(settings_conversion, self.options["-a"])
 
     @adjacent_dicoms.setter
     def adjacent_dicoms(self, setting: Union[str, bool]) -> None:
         settings_conversion = {True: "y", False: "n"}
         valid_settings = ["y", "n"]
+        valid_setting_types = [str, bool]
+        setting_name = "Adjacent DICOM"
+
+        self._check_valid_setting_type(setting_name, valid_setting_types, type(setting))
 
         setting = self._convert_settings(settings_conversion, setting)
 
-        self._check_valid_setting("Adjacent DICOM", valid_settings, setting)
+        self._check_valid_setting(setting_name, valid_settings, setting)
 
         self.options["-a"] = setting
 
