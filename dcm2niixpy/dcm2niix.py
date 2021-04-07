@@ -34,6 +34,14 @@ class DCM2NIIX:
         self.ignore_derived = False
         self.losslessly_scale = False
         self.merge_2d_slices = "auto"
+        self.rename = False
+        self.single_file_mode = False
+        self.private_text_notes = False
+        self.verbose = 0
+        self.conflict_write_behavior = 2
+        self.crop_3D = False
+        self.byte_order = "o"
+        self.progress = False
 
         self.compress = False
 
@@ -338,6 +346,102 @@ class DCM2NIIX:
         self.options["-p"] = setting
 
     @property
+    def rename(self) -> str:
+        "rename instead of convert DICOMs (y/n, default n)"
+        return self.options["-r"]
+
+    @rename.setter
+    def rename(self, setting: Union[str, bool]) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Rename", valid_settings, setting)
+
+        self.options["-r"] = setting
+
+    @property
+    def single_file_mode(self) -> str:
+        "single file mode, do not convert other images in folder (y/n, default n)"
+        return self.options["-s"]
+
+    @single_file_mode.setter
+    def single_file_mode(self, setting: Union[str, bool]) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Single file mode", valid_settings, setting)
+
+        self.options["-s"] = setting
+
+    @property
+    def private_text_notes(self) -> str:
+        "text notes includes private patient details (y/n, default n)"
+        return self.options["-t"]
+
+    @private_text_notes.setter
+    def private_text_notes(self, setting: Union[str, bool]) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Private text notes", valid_settings, setting)
+
+        self.options["-t"] = setting
+
+    @property
+    def verbose(self) -> str:
+        "verbose (n/y or 0/1/2, default 0) [no, yes, logorrheic]"
+        return self.options["-v"]
+
+    @verbose.setter
+    def verbose(self, setting: Union[str, bool, int]) -> None:
+        settings_conversion = {True: "y", False: "n", 0: "0", 1: "1", 2: "2"}
+        valid_settings = ["y", "n", "0", "1", "2"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Verbose", valid_settings, setting)
+
+        self.options["-v"] = setting
+
+    @property
+    def conflict_write_behavior(self) -> str:
+        "write behavior for name conflicts (0,1,2, default 2: 0=skip duplicates, 1=overwrite, 2=add suffix)"
+        return self.options["-w"]
+
+    @conflict_write_behavior.setter
+    def conflict_write_behavior(self, setting: Union[str, int]) -> None:
+        settings_conversion = {0: "0", 1: "1", 2: "2"}
+        valid_settings = ["0", "1", "2"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Conflict write behavior", valid_settings, setting)
+
+        self.options["-w"] = setting
+
+    @property
+    def crop_3D(self) -> str:
+        "crop 3D acquisitions (y/n/i, default n, use 'i'gnore to neither crop nor rotate 3D acquistions)"
+        return self.options["-x"]
+
+    @crop_3D.setter
+    def crop_3D(self, setting: Union[str, bool]) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n", "o"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Crop 3D acquisitions", valid_settings, setting)
+
+        self.options["-x"] = setting
+
+    @property
     def compress(self) -> str:
         return self.options["-z"]
 
@@ -352,14 +456,56 @@ class DCM2NIIX:
 
         self.options["-z"] = setting
 
+    @property
+    def byte_order(self) -> str:
+        return self.options["--big-endian"]
+
+    @byte_order.setter
+    def byte_order(self, setting: Union[bool, str]) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n", "o"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Byte order", valid_settings, setting)
+
+        self.options["--big-endian"] = setting
+
+    @property
+    def progress(self) -> str:
+        return self.options["--progress"]
+
+    @progress.setter
+    def progress(self, setting: Union[bool, str]) -> None:
+        settings_conversion = {True: "y", False: "n"}
+        valid_settings = ["y", "n"]
+
+        setting = self._convert_settings(settings_conversion, setting)
+
+        self._check_valid_setting("Progress", valid_settings, setting)
+
+        self.options["--progress"] = setting
+
+    @property
+    def terse(self) -> str:
+        return self.options["terse"]
+
+    @terse.setter
+    def terse(self, setting: bool) -> None:
+        valid_settings = [True, False]
+        self._check_valid_setting("Terse", valid_settings, setting)
+        self.options["terse"] = setting
+
     def _convert_options_to_arg_list(self) -> list:
         arg_list = []
         for i_key, i_val in self.options.items():
             if i_key[0] == "-":
                 arg_list.append(i_key)
                 arg_list.append(i_val)
-            else:
+            elif i_key == "compression_level":
                 arg_list.append("-" + i_val)
+            elif i_key == "terse" and i_val:
+                arg_list.append("--terse")
 
         return arg_list
 
