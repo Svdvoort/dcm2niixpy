@@ -41,6 +41,7 @@ jobs:
         wget -qO- https://codeload.github.com/sylabs/singularity/tar.gz/refs/tags/v${SINGULARITY_VERSION} | \
         tar -xz && \
         cd singularity-${SINGULARITY_VERSION} && \
+        echo ${SINGULARITY_VERSION} > VERSION && \
         ./mconfig -p /usr/local && \
         make -C builddir && \
         sudo make -C builddir install
