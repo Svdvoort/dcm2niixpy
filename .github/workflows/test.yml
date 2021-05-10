@@ -40,7 +40,7 @@ jobs:
         cd $GOPATH/src/github.com/sylabs && \
         wget -qO- https://codeload.github.com/sylabs/singularity/tar.gz/refs/tags/v${SINGULARITY_VERSION} | \
         tar -xz && \
-        cd singularity && \
+        cd singularity-${SINGULARITY_VERSION} && \
         ./mconfig -p /usr/local && \
         make -C builddir && \
         sudo make -C builddir install
