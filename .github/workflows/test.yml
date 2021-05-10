@@ -39,7 +39,7 @@ jobs:
         mkdir -p $GOPATH/src/github.com/sylabs && \
         cd $GOPATH/src/github.com/sylabs && \
         wget -qO- https://codeload.github.com/sylabs/singularity/tar.gz/refs/tags/v${SINGULARITY_VERSION} | \
-        tar xzv && \
+        tar -xzf && \
         cd singularity && \
         ./mconfig -p /usr/local && \
         make -C builddir && \
