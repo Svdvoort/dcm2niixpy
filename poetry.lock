@@ -562,7 +562,7 @@ typing_extensions = "*"
 
 [[package]]
 name = "flake8-plugin-utils"
-version = "1.3.1"
+version = "1.3.2"
 description = "The package provides base classes and utils for flake8 plugin writing"
 category = "dev"
 optional = false
@@ -1443,7 +1443,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.0,<3.9"
-content-hash = "62e26903c28950ccdfc411c6e1b2d9c96995a49bf651923bbb29583ed44dcda7"
+content-hash = "f2f86ab7225bdb0905862b7f71d5a350424e06d6a33d80a8deedea6305cd37c1"
 
 [metadata.files]
 alabaster = [
@@ -1699,8 +1699,8 @@ flake8-pie = [
     {file = "flake8_pie-0.12.0-py3-none-any.whl", hash = "sha256:d65b9a847884d375d4ee46927a53ccec81b4dc23798ce4c6c8d53aca32c66409"},
 ]
 flake8-plugin-utils = [
-    {file = "flake8-plugin-utils-1.3.1.tar.gz", hash = "sha256:6e996bc24ebe327558f24efd106f1be5f0c033c8cbb6eed815631f73d487f1c9"},
-    {file = "flake8_plugin_utils-1.3.1-py3-none-any.whl", hash = "sha256:efdbf9d15b18f72b7c348dd360f30e7cf3e73aa67ff832d5343eb5aa1115f250"},
+    {file = "flake8-plugin-utils-1.3.2.tar.gz", hash = "sha256:20fa2a8ca2decac50116edb42e6af0a1253ef639ad79941249b840531889c65a"},
+    {file = "flake8_plugin_utils-1.3.2-py3-none-any.whl", hash = "sha256:1fe43e3e9acf3a7c0f6b88f5338cad37044d2f156c43cb6b080b5f9da8a76f06"},
 ]
 flake8-polyfill = [
     {file = "flake8-polyfill-1.0.2.tar.gz", hash = "sha256:e44b087597f6da52ec6393a709e7108b2905317d0c0b744cdca6208e670d8eda"},
