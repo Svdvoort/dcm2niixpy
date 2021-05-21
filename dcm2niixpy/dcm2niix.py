@@ -578,7 +578,6 @@ class DCM2NIIX_OUTPUT:
     def parse_output(self, output):
         for i_line in output:
             i_line = i_line.strip()
-            print(i_line)
 
             self._parse_converted_info(i_line)
             self._parse_warning(i_line)
