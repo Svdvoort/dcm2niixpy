@@ -425,7 +425,7 @@ pydocstyle = ">=2.1"
 
 [[package]]
 name = "flake8-eradicate"
-version = "1.0.0"
+version = "1.1.0"
 description = "Flake8 plugin to find commented out code"
 category = "dev"
 optional = false
@@ -1450,7 +1450,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.0,<3.9"
-content-hash = "4ebab0142fb3a064ac47a6f1d5a6bd51ab17a43e94f2048d3c76a51fe5b5abf8"
+content-hash = "057c1b6e426187a0ed80932f469dd9cf1b248b4e91a26bcd1361ce51b895511d"
 
 [metadata.files]
 alabaster = [
@@ -1660,8 +1660,8 @@ flake8-docstrings = [
     {file = "flake8_docstrings-1.6.0-py2.py3-none-any.whl", hash = "sha256:99cac583d6c7e32dd28bbfbef120a7c0d1b6dde4adb5a9fd441c4227a6534bde"},
 ]
 flake8-eradicate = [
-    {file = "flake8-eradicate-1.0.0.tar.gz", hash = "sha256:fe7167226676823d50cf540532302a6f576c5a398c5260692571a05ef72c5f5b"},
-    {file = "flake8_eradicate-1.0.0-py3-none-any.whl", hash = "sha256:0fc4ab858a18c7ed630621b5345254c8f55be6060ea5c44a25e384d613618d1f"},
+    {file = "flake8-eradicate-1.1.0.tar.gz", hash = "sha256:f5917d6dbca352efcd10c15fdab9c55c48f0f26f6a8d47898b25d39101f170a8"},
+    {file = "flake8_eradicate-1.1.0-py3-none-any.whl", hash = "sha256:d8e39b684a37c257a53cda817d86e2d96c9ba3450ddc292742623a5dfee04d9e"},
 ]
 flake8-executable = [
     {file = "flake8-executable-2.1.1.tar.gz", hash = "sha256:c6230a089ad49dbeef049d8e1e89591d9823f06c829cd9d6b1ca83b4b1d7f54f"},
