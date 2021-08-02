@@ -45,7 +45,7 @@ pre-commit = "^2.13.0"
 
 unimport = "^0.8.4"
 
-Sphinx = "^4.1.1"
+Sphinx = "^4.1.2"
 sphinx-autodoc-typehints = "^1.12.0"
 recommonmark = "^0.7.1"
 sphinx_rtd_theme = "^0.5.0"
