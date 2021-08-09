@@ -41,7 +41,7 @@ black = "^21.7b0"
 
 mypy = "^0.910"
 
-pre-commit = "^2.13.0"
+pre-commit = "^2.14.0"
 
 unimport = "^0.8.4"
 
