@@ -43,7 +43,7 @@ mypy = "^0.910"
 
 pre-commit = "^2.15.0"
 
-unimport = "^0.8.4"
+unimport = "^0.9.0"
 
 Sphinx = "^4.1.2"
 sphinx-autodoc-typehints = "^1.12.0"
