@@ -33,7 +33,7 @@ pytest-memprof = "^0.2.0"
 pytest-cov = "^2.12.1"
 pytest-datafiles = "^2.0"
 pytest-xdist = "^2.4.0"
-xdoctest = "^0.15.8"
+xdoctest = "^0.15.9"
 
 darglint = "^1.2.3"
 
