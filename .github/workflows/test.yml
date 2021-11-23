@@ -18,6 +18,41 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Install go
+      uses: actions/setup-go@v1
+      with:
+        go-version: 1.16.3
+      id: go
+
+    - name: Install singularity dependencies
+      run: |
+       sudo apt-get update && sudo apt-get install -y \
+        build-essential \
+        libssl-dev \
+        uuid-dev \
+        libgpgme11-dev \
+        squashfs-tools \
+        libseccomp-dev \
+        pkg-config
+
+    - name: Install singularity
+      env:
+        SINGULARITY_VERSION: 3.7.3
+        GOPATH: /tmp/go
+      run: |
+        mkdir -p $GOPATH
+        sudo mkdir -p /usr/local/var/singularity/mnt && \
+        mkdir -p $GOPATH/src/github.com/sylabs && \
+        cd $GOPATH/src/github.com/sylabs && \
+        wget -qO- https://codeload.github.com/sylabs/singularity/tar.gz/refs/tags/v${SINGULARITY_VERSION} | \
+        tar -xz && \
+        cd singularity-${SINGULARITY_VERSION} && \
+        echo ${SINGULARITY_VERSION} > VERSION && \
+        ./mconfig -p /usr/local && \
+        make -C builddir && \
+        sudo make -C builddir install
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
