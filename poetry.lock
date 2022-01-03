@@ -307,14 +307,14 @@ python-versions = "*"
 
 [[package]]
 name = "flake8-assertive"
-version = "1.3.0"
+version = "2.0.0"
 description = "Flake8 unittest assert method checker"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 
 [package.dependencies]
-flake8 = "*"
+flake8 = ">=3.0.0"
 
 [[package]]
 name = "flake8-black"
@@ -1477,7 +1477,7 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pyt
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.0,<3.9"
-content-hash = "7602242b158dc76da21ef6951c785276fe757c7a732b91302bf022df77f61401"
+content-hash = "fdfa47c930bc0f4781af0fda8ed03ff24cd210c28113b25d678580cdfaf82177"
 
 [metadata.files]
 alabaster = [
@@ -1643,8 +1643,8 @@ flake8-annotations-coverage = [
     {file = "flake8_annotations_coverage-0.0.5.tar.gz", hash = "sha256:6a209073d1afd31352ff8eedb4521d6210993cba51fbfff850e3d80c6b528f58"},
 ]
 flake8-assertive = [
-    {file = "flake8-assertive-1.3.0.tar.gz", hash = "sha256:b29127ef80b6bc0fbec16fac6dd9e8d640a2dbd4de92853d5caf307b32b032db"},
-    {file = "flake8_assertive-1.3.0-py2.py3-none-any.whl", hash = "sha256:e4901b00c93bdff2357e93af6444ec5ea32efc03add86ad0c946e82f6e5770d7"},
+    {file = "flake8-assertive-2.0.0.tar.gz", hash = "sha256:9218ac18dbc61931bdbd0e3dd429f0dc4a926931df7795157020f1478d4b47fb"},
+    {file = "flake8_assertive-2.0.0-py3-none-any.whl", hash = "sha256:90449a82a455992287fb6ff43ebc31bd08617b0e22cc0de66304588155f7dd43"},
 ]
 flake8-black = [
     {file = "flake8-black-0.2.3.tar.gz", hash = "sha256:c199844bc1b559d91195ebe8620216f21ed67f2cc1ff6884294c91a0d2492684"},
