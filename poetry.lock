@@ -1316,7 +1316,7 @@ test = ["pytest"]
 
 [[package]]
 name = "spython"
-version = "0.1.17"
+version = "0.1.18"
 description = "Command line python tool for working with singularity."
 category = "main"
 optional = false
@@ -2137,7 +2137,7 @@ sphinxcontrib-serializinghtml = [
     {file = "sphinxcontrib_serializinghtml-1.1.5-py2.py3-none-any.whl", hash = "sha256:352a9a00ae864471d3a7ead8d7d79f5fc0b57e8b3f95e9867eb9eb28999b92fd"},
 ]
 spython = [
-    {file = "spython-0.1.17.tar.gz", hash = "sha256:00991fa848c6787ffbb7dfa6efc67cc80cb5214b5faf7124515c92f4bb02de3e"},
+    {file = "spython-0.1.18.tar.gz", hash = "sha256:1a58735f1d119976ffef63619d0e0b626d43151f84a5d63cb3d67a34b14991a1"},
 ]
 stdlib-list = [
     {file = "stdlib-list-0.8.0.tar.gz", hash = "sha256:a1e503719720d71e2ed70ed809b385c60cd3fb555ba7ec046b96360d30b16d9f"},
