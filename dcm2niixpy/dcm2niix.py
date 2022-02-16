@@ -10,7 +10,7 @@ class DCM2NIIX:
     def __init__(self, container_backend="singularity", version=None) -> None:
         self.SINGULARITY_KEYWORD = "singularity"
         self.DOCKER_KEYWORD = "docker"
-        self.SINGULARITY_ROOT_URL = "library://svdvoort/default/dcm2niix"
+        self.SINGULARITY_ROOT_URL = "docker://svdvoort/dcm2niix"
         self.DOCKER_ROOT_URL = "svdvoort/dcm2niix"
         if version is not None:
             # TODO check whether the version is actually able for use
