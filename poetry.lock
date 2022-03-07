@@ -273,19 +273,25 @@ typed-ast = {version = ">=1.4,<2.0", markers = "python_version < \"3.8\""}
 
 [[package]]
 name = "flake8-annotations-complexity"
-version = "0.0.6"
+version = "0.0.7"
 description = "A flake8 extension that checks for type annotations complexity"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
+
+[package.dependencies]
+flake8 = "*"
 
 [[package]]
 name = "flake8-annotations-coverage"
-version = "0.0.5"
+version = "0.0.6"
 description = "A flake8 extension that checks for type annotations coverage"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
+
+[package.dependencies]
+flake8 = "*"
 
 [[package]]
 name = "flake8-assertive"
@@ -300,16 +306,16 @@ flake8 = ">=3.0.0"
 
 [[package]]
 name = "flake8-black"
-version = "0.2.5"
+version = "0.3.2"
 description = "flake8 plugin to call black as a code style validator"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 
 [package.dependencies]
-black = "*"
+black = ">=22.1.0"
 flake8 = ">=3.0.0"
-toml = "*"
+tomli = "*"
 
 [[package]]
 name = "flake8-broken-line"
@@ -436,11 +442,11 @@ flake8 = ">=3.0.0"
 
 [[package]]
 name = "flake8-expression-complexity"
-version = "0.0.9"
+version = "0.0.10"
 description = "A flake8 extension that checks expressions complexity"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 astpretty = "*"
@@ -456,7 +462,7 @@ python-versions = "*"
 
 [[package]]
 name = "flake8-functions"
-version = "0.0.6"
+version = "0.0.7"
 description = "A flake8 extension that checks functions"
 category = "dev"
 optional = false
@@ -464,7 +470,6 @@ python-versions = "*"
 
 [package.dependencies]
 mr-proper = "*"
-pytest = "*"
 
 [[package]]
 name = "flake8-import-order"
@@ -661,11 +666,11 @@ importlib-metadata = {version = ">=0.9", markers = "python_version < \"3.8\""}
 
 [[package]]
 name = "flake8-variables-names"
-version = "0.0.4"
+version = "0.0.5"
 description = "A flake8 extension that helps to make more readable variables names"
 category = "dev"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7"
 
 [[package]]
 name = "identify"
@@ -1613,19 +1618,20 @@ flake8-annotations = [
     {file = "flake8_annotations-2.7.0-py3-none-any.whl", hash = "sha256:3edfbbfb58e404868834fe6ec3eaf49c139f64f0701259f707d043185545151e"},
 ]
 flake8-annotations-complexity = [
-    {file = "flake8_annotations_complexity-0.0.6-py3-none-any.whl", hash = "sha256:078a84e8269ef82c4c9de5198638e9a91a2089307d4e559666464a87b528ea69"},
-    {file = "flake8_annotations_complexity-0.0.6.tar.gz", hash = "sha256:32dfc8f42df3b16fb4fbc66a287433e176ae1bd39894d9aec898cfc70aef25cb"},
+    {file = "flake8_annotations_complexity-0.0.7-py3-none-any.whl", hash = "sha256:a1410f5b964927032471ce99932d1670d28ea323b50400b45cc14575be070508"},
+    {file = "flake8_annotations_complexity-0.0.7.tar.gz", hash = "sha256:2ecd93375e3dee0d4e11e476087a52fa985c47bc049015ff04a9de38fc0c4dfd"},
 ]
 flake8-annotations-coverage = [
-    {file = "flake8_annotations_coverage-0.0.5.tar.gz", hash = "sha256:6a209073d1afd31352ff8eedb4521d6210993cba51fbfff850e3d80c6b528f58"},
+    {file = "flake8_annotations_coverage-0.0.6-py3-none-any.whl", hash = "sha256:9662ca85d4b40acbe683bb87fa08d9ff28e28b2aab3d2403974b09a9ee5f6a04"},
+    {file = "flake8_annotations_coverage-0.0.6.tar.gz", hash = "sha256:b94d34b35e558be23991d14f685a13a4a77a46c16586f9bbff90b40c13724ce1"},
 ]
 flake8-assertive = [
     {file = "flake8-assertive-2.0.0.tar.gz", hash = "sha256:9218ac18dbc61931bdbd0e3dd429f0dc4a926931df7795157020f1478d4b47fb"},
     {file = "flake8_assertive-2.0.0-py3-none-any.whl", hash = "sha256:90449a82a455992287fb6ff43ebc31bd08617b0e22cc0de66304588155f7dd43"},
 ]
 flake8-black = [
-    {file = "flake8-black-0.2.5.tar.gz", hash = "sha256:fb6372cc90da129eec492989485a4f99d976f41d4072536470c18e0da0164724"},
-    {file = "flake8_black-0.2.5-py3-none-any.whl", hash = "sha256:022744ef1513f9a0b748c65ae2a81024d71b992c88f48212187a3fdbb4988943"},
+    {file = "flake8-black-0.3.2.tar.gz", hash = "sha256:6f6bf198f3f45df43245d1d1a0ba2035ee5817d167680f9e1af23cde70cb7548"},
+    {file = "flake8_black-0.3.2-py3-none-any.whl", hash = "sha256:9c86b24ede16a80555808c6c4779d81bc54cff57d0dd1980029c0e4b39ac8b45"},
 ]
 flake8-broken-line = [
     {file = "flake8-broken-line-0.4.0.tar.gz", hash = "sha256:771aab5aa0997666796fed249d0e48e6c01cdfeca8c95521eea28a38b7ced4c7"},
@@ -1667,15 +1673,16 @@ flake8-executable = [
     {file = "flake8_executable-2.1.1-py3-none-any.whl", hash = "sha256:c1df78bf4eff1b75bff0a3d29609d096d61ccfd703a4a9485019af9a640d6e2b"},
 ]
 flake8-expression-complexity = [
-    {file = "flake8_expression_complexity-0.0.9.tar.gz", hash = "sha256:1ae325880a5dbfef60a35eaa8bb5351d5c5102774a41d4ed7059bc093a95955b"},
+    {file = "flake8_expression_complexity-0.0.10-py3-none-any.whl", hash = "sha256:42daa9f16e982083febafd2eecc2c98090cb50b5e60d3c08e4c0395803d16d32"},
+    {file = "flake8_expression_complexity-0.0.10.tar.gz", hash = "sha256:2c91a55601077a555dcd3e5998063773585b323b63fec654e2b674867f3e0040"},
 ]
 flake8-fixme = [
     {file = "flake8-fixme-1.1.1.tar.gz", hash = "sha256:50cade07d27a4c30d4f12351478df87339e67640c83041b664724bda6d16f33a"},
     {file = "flake8_fixme-1.1.1-py2.py3-none-any.whl", hash = "sha256:226a6f2ef916730899f29ac140bed5d4a17e5aba79f00a0e3ae1eff1997cb1ac"},
 ]
 flake8-functions = [
-    {file = "flake8_functions-0.0.6-py3-none-any.whl", hash = "sha256:7afa7979d20d28a3cde0c14b3fddf42beef23232620a641ad20dcc2de49eddf3"},
-    {file = "flake8_functions-0.0.6.tar.gz", hash = "sha256:6d42da93c4b13354a3973da7bf4e239225f9dba167e8a099fd647ae483ac3e24"},
+    {file = "flake8_functions-0.0.7-py3-none-any.whl", hash = "sha256:f2f75545c2b0df9eeba0ad316e2ac38c101676970b4441300fc07af3226a44f6"},
+    {file = "flake8_functions-0.0.7.tar.gz", hash = "sha256:40584b05d57e5ab185545bcfa08aa0edca52b04646d0df266e2b1667d6437184"},
 ]
 flake8-import-order = [
     {file = "flake8-import-order-0.18.1.tar.gz", hash = "sha256:a28dc39545ea4606c1ac3c24e9d05c849c6e5444a50fb7e9cdd430fc94de6e92"},
@@ -1742,7 +1749,8 @@ flake8-typing-imports = [
     {file = "flake8_typing_imports-1.12.0.tar.gz", hash = "sha256:d9482d7a3dd3d777915c7f8907a166b405aaf8314ecceb1be2b642e9375d87ed"},
 ]
 flake8-variables-names = [
-    {file = "flake8_variables_names-0.0.4.tar.gz", hash = "sha256:d6fa0571a807c72940b5773827c5760421ea6f8206595ff0a8ecfa01e42bf2cf"},
+    {file = "flake8_variables_names-0.0.5-py3-none-any.whl", hash = "sha256:e3277031696bbe10b5132b49938cde1d70fcae9561533b7bd7ab8e69cb27addb"},
+    {file = "flake8_variables_names-0.0.5.tar.gz", hash = "sha256:30133e14ee2300e13a60393a00f74d98110c76070ac67d1ab91606f02824a7e1"},
 ]
 identify = [
     {file = "identify-2.4.11-py2.py3-none-any.whl", hash = "sha256:fd906823ed1db23c7a48f9b176a1d71cb8abede1e21ebe614bac7bdd688d9213"},
