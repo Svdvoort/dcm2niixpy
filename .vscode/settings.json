@@ -18,5 +18,7 @@
   "restructuredtext.confPath": "${workspaceFolder}/docs/source",
   "python.venvFolders": [
     "${workspaceFolder}/.venv"
-  ]
+  ],
+  "esbonio.server.enabled": true,
+  "esbonio.sphinx.confDir": "/home/sebastian/Repos/dcm2niixpy/docs/source"
 }
