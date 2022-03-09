@@ -8,7 +8,7 @@ description = "Python package of dcm2niix"
 version = "1.0.0"
 license = "MIT"
 
-authors = []
+authors = "Sebastian van der Voort",
 
 readme = "README.md"
 
