@@ -13,19 +13,19 @@ from spython.main import Client
 class DCM2NIIX:
     def __init__(
         self,
+        version: str,
         container_backend="singularity",
-        version: str = None,
-        download=False,
-        download_location: str = None,
+        download: bool = False,
+        download_folder: str = None,
     ) -> None:
         """
         Initialize the DCM2NIIX object.
 
         Args:
             container_backend (str, optional): Either "docker" or "singularity". Defaults to "singularity".
-            version (str, optional): Docker tag of version to use. Defaults to None.
+            version (str): Docker tag of version to use. Defaults to None.
             download (bool, optional): Whether to download the container instead of pulling and running everytime. Defaults to False.
-            download_location (str, optional): Location to download the container to. Defaults to None.
+            download_folder (str, optional): Location to download the container to. Defaults to None.
         """
 
         self.SINGULARITY_KEYWORD = "singularity"
@@ -33,14 +33,17 @@ class DCM2NIIX:
         self.SINGULARITY_ROOT_URL = "docker://svdvoort/dcm2niix"
         self.DOCKER_ROOT_URL = "svdvoort/dcm2niix"
 
-        if version is not None:
-            # TODO check whether the version is actually able for use
-            self.version = version
-        else:
-            self.version = "latest"
+        # TODO check whether the version is actually able for use
+        self.version = version
 
         self.container_backend = container_backend
         self.container_url = self._construct_container_url()
+        self.download_container = download
+        self.download_folder = download_folder
+        self.download_name = None
+        if self.download_container:
+            self.download_name = "dcm2niix_" + self.version + ".sif"
+            self._download_container()
 
         self.options: Dict[str, str] = {}
 
@@ -65,6 +68,10 @@ class DCM2NIIX:
         self.progress = False
 
         self.compress = False
+
+    ######
+    # Container functions
+    ######
 
     def _check_singularity_installation(self) -> bool:
         """
@@ -130,6 +137,19 @@ class DCM2NIIX:
             else:
                 self._container_backend = self.DOCKER_KEYWORD
 
+    def _download_container(self) -> None:
+        if self.download_container:
+            if not os.path.exists(os.path.join(self.download_folder, self.download_name)):
+                Client.pull(
+                    image=self.container_url,
+                    pull_folder=self.download_folder,
+                    ext="sif",
+                    name=self.download_name,
+                )
+
+    ######
+    # Helper functions
+    #####
     def _convert_settings(
         self, conversion_index: dict, setting: Union[str, bool, int]
     ) -> Union[str, bool, int]:
@@ -643,7 +663,15 @@ class DCM2NIIX:
 
         bindings = self._make_input_output_binding(input_path, output_path)
 
-        output = Client.run(self.container_url, command_line_args, bind=bindings, stream=True)
+        if not self.download_container:
+            output = Client.run(self.container_url, command_line_args, bind=bindings, stream=True)
+        else:
+            output = Client.run(
+                os.path.join(self.download_folder, self.download_name),
+                command_line_args,
+                bind=bindings,
+                stream=True,
+            )
 
         output_info = DCM2NIIX_OUTPUT()
         output_info.parse_output(output)
