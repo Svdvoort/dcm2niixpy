@@ -1,17 +1,38 @@
-import re
 import os
-from spython.main import Client
-from typing import Dict, Union
-import spython.utils
+import re
 import shutil
+
+from typing import Dict
+from typing import Union
+
+import spython.utils
+
+from spython.main import Client
 
 
 class DCM2NIIX:
-    def __init__(self, container_backend="singularity", version=None) -> None:
+    def __init__(
+        self,
+        container_backend="singularity",
+        version: str = None,
+        download=False,
+        download_location: str = None,
+    ) -> None:
+        """
+        Initialize the DCM2NIIX object.
+
+        Args:
+            container_backend (str, optional): Either "docker" or "singularity". Defaults to "singularity".
+            version (str, optional): Docker tag of version to use. Defaults to None.
+            download (bool, optional): Whether to download the container instead of pulling and running everytime. Defaults to False.
+            download_location (str, optional): Location to download the container to. Defaults to None.
+        """
+
         self.SINGULARITY_KEYWORD = "singularity"
         self.DOCKER_KEYWORD = "docker"
         self.SINGULARITY_ROOT_URL = "docker://svdvoort/dcm2niix"
         self.DOCKER_ROOT_URL = "svdvoort/dcm2niix"
+
         if version is not None:
             # TODO check whether the version is actually able for use
             self.version = version
@@ -46,6 +67,12 @@ class DCM2NIIX:
         self.compress = False
 
     def _check_singularity_installation(self) -> bool:
+        """
+        Check whether the singularity installation is available.
+
+        Returns:
+            bool: True if singularity is installed
+        """
         return spython.utils.check_install()
 
     def _construct_container_url(self) -> str:
@@ -58,10 +85,26 @@ class DCM2NIIX:
 
     @property
     def container_backend(self) -> str:
+        """
+        Get the container backend.
+
+        Returns:
+            str: Either "docker" or "singularity".
+        """
         return self._container_backend
 
     @container_backend.setter
     def container_backend(self, container_backend: str) -> None:
+        """
+        Set the container backend.
+
+        Args:
+            container_backend (str): Either "docker" or "singularity".
+
+        Raises:
+            NotImplementedError: If not docker or singularity.
+            OSError: If using a backend that is not installed.
+        """
         if container_backend not in [self.DOCKER_KEYWORD, self.SINGULARITY_KEYWORD]:
             raise NotImplementedError(
                 "Container backend should be either 'docker' or 'singularity'. You passed {input}".format(
@@ -87,13 +130,38 @@ class DCM2NIIX:
             else:
                 self._container_backend = self.DOCKER_KEYWORD
 
-    def _convert_settings(self, conversion_index: dict, setting) -> Union[str, bool, int]:
+    def _convert_settings(
+        self, conversion_index: dict, setting: Union[str, bool, int]
+    ) -> Union[str, bool, int]:
+        """
+        Go from internal settings to the settings that are passed to the dcm2niix command.
+
+        Args:
+            conversion_index (dict): Dictionary with the required conversions.
+            setting (Union[str, bool, int]): The setting to convert.
+
+        Returns:
+            Union[str, bool, int]: Converted setting.
+        """
         if setting in conversion_index:
             return conversion_index[setting]
         else:
             return setting
 
-    def _check_valid_setting(self, setting_name: str, valid_settings: list, setting):
+    def _check_valid_setting(
+        self, setting_name: str, valid_settings: list, setting: Union[str, bool, int]
+    ):
+        """
+        Check whether a setting is valid.
+
+        Args:
+            setting_name (str): _description_
+            valid_settings (list): _description_
+            setting (_type_): _description_
+
+        Raises:
+            ValueError: _description_
+        """
         if setting not in valid_settings:
             err_msg = "{setting_name} setting should be one of '{valid_settings}', you passed '{input}'".format(
                 setting_name=setting_name,
@@ -103,7 +171,20 @@ class DCM2NIIX:
 
             raise ValueError(err_msg)
 
-    def _check_valid_setting_type(self, setting_name: str, valid_setting_types, setting_type):
+    def _check_valid_setting_type(
+        self, setting_name: str, valid_setting_types: list, setting_type: type
+    ):
+        """
+        Check whether a certain setting has the valid type for the setting.
+
+        Args:
+            setting_name (str): Name of the setting.
+            valid_setting_types (list): Which types are valid for that setting
+            setting_type (type): Type of the setting.
+
+        Raises:
+            TypeError: If the setting type is not valid.
+        """
         if setting_type not in valid_setting_types:
             valid_setting_types = [
                 i_valid_setting.__name__ for i_valid_setting in valid_setting_types
@@ -122,11 +203,22 @@ class DCM2NIIX:
 
     @property
     def compression_level(self) -> int:
-        "gz compression level (1=fastest..9=smallest, default 6)"
+        """
+        gz compression level (1=fastest, 9=smallest)
+
+        Returns:
+            int: compression level
+        """
         return int(self.options["compression_level"])
 
     @compression_level.setter
-    def compression_level(self, setting: Union[str, int]) -> None:
+    def compression_level(self, setting: Union[str, int] = 6) -> None:
+        """
+        Set the gz compression level, (1=fastest, 9=smallest)
+
+        Args:
+            setting (Union[str, int], optional): The compression level. Defaults to 6.
+        """
         setting_name = "Compression level"
         settings_conversion = {
             0: "0",
