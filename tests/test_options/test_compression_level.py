@@ -3,8 +3,8 @@ import pytest
 import dcm2niixpy
 
 
-def test_initial_compression_level_setting():
-    dcm2niix = dcm2niixpy.DCM2NIIX()
+def test_initial_compression_level_setting(test_version):
+    dcm2niix = dcm2niixpy.DCM2NIIX(test_version)
 
     compression_level = dcm2niix.compression_level  # act
 
@@ -12,24 +12,24 @@ def test_initial_compression_level_setting():
     assert compression_level == 6
 
 
-def test_invalid_type_compression_level_setting():
-    dcm2niix = dcm2niixpy.DCM2NIIX()
+def test_invalid_type_compression_level_setting(test_version):
+    dcm2niix = dcm2niixpy.DCM2NIIX(test_version)
     raised_error_msg = r"Compression level setting should be one of 'str, int', you passed an argument with type 'bool'"
 
     with pytest.raises(TypeError, match=raised_error_msg):
         dcm2niix.compression_level = True
 
 
-def test_invalid_compression_level_setting():
-    dcm2niix = dcm2niixpy.DCM2NIIX()
+def test_invalid_compression_level_setting(test_version):
+    dcm2niix = dcm2niixpy.DCM2NIIX(test_version)
     raised_error_msg = r"Compression level setting should be one of '0, 1, 2, 3, 4, 5, 6, 7, 8, 9', you passed '15'"
 
     with pytest.raises(ValueError, match=raised_error_msg):
         dcm2niix.compression_level = 15
 
 
-def test_int_compression_level_setting():
-    dcm2niix = dcm2niixpy.DCM2NIIX()
+def test_int_compression_level_setting(test_version):
+    dcm2niix = dcm2niixpy.DCM2NIIX(test_version)
     to_test_levels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     for i_level in to_test_levels:
@@ -39,8 +39,8 @@ def test_int_compression_level_setting():
         assert dcm2niix.compression_level == i_level
 
 
-def test_str_compression_level_setting():
-    dcm2niix = dcm2niixpy.DCM2NIIX()
+def test_str_compression_level_setting(test_version):
+    dcm2niix = dcm2niixpy.DCM2NIIX(test_version)
     to_test_levels = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 
     for i_level in to_test_levels:

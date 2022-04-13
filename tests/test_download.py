@@ -4,8 +4,7 @@ import tempfile
 import dcm2niixpy
 
 
-def test_download_specific_version_container():
-    test_version = "1.0.20211006"
+def test_download_specific_version_container(test_version):
     expected_output_name = "dcm2niix_{test_version}.sif".format(test_version=test_version)
 
     with tempfile.TemporaryDirectory() as tmp_dir:
@@ -15,8 +14,7 @@ def test_download_specific_version_container():
         assert os.path.exists(os.path.join(tmp_dir, expected_output_name))
 
 
-def test_run_downloaded_container(testdata_dir):
-    test_version = "1.0.20211006"
+def test_run_downloaded_container(test_version, testdata_dir):
     covert_dir = os.path.join(testdata_dir, "BRAIN_MR")
 
     with tempfile.TemporaryDirectory() as tmp_dir:

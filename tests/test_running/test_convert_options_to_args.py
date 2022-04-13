@@ -1,8 +1,8 @@
 import dcm2niixpy
 
 
-def test_with_no_options():
-    dcm2niix = dcm2niixpy.DCM2NIIX()
+def test_with_no_options(test_version):
+    dcm2niix = dcm2niixpy.DCM2NIIX(test_version)
     default_options = [
         "-6",
         "-a",
