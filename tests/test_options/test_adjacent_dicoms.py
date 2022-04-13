@@ -1,10 +1,10 @@
 import pytest
 
-import dcm2niixpy.dcm2niix
+import dcm2niixpy
 
 
 def test_initial_adjacent_dicom_setting():
-    dcm2niix = dcm2niixpy.dcm2niix.DCM2NIIX()
+    dcm2niix = dcm2niixpy.DCM2NIIX()
 
     adjacent_dicoms = dcm2niix.adjacent_dicoms  # act
 
@@ -13,7 +13,7 @@ def test_initial_adjacent_dicom_setting():
 
 
 def test_invalid_type_adjacent_dicom_setting():
-    dcm2niix = dcm2niixpy.dcm2niix.DCM2NIIX()
+    dcm2niix = dcm2niixpy.DCM2NIIX()
 
     raised_error_msg = r"Adjacent DICOM setting should be one of 'str, bool', you passed an argument with type 'int'"
 
@@ -22,7 +22,7 @@ def test_invalid_type_adjacent_dicom_setting():
 
 
 def test_invalid_adjacent_dicom_setting():
-    dcm2niix = dcm2niixpy.dcm2niix.DCM2NIIX()
+    dcm2niix = dcm2niixpy.DCM2NIIX()
     raised_error_msg = r"Adjacent DICOM setting should be one of 'y, n', you passed '5'"
 
     with pytest.raises(ValueError, match=raised_error_msg):
@@ -30,7 +30,7 @@ def test_invalid_adjacent_dicom_setting():
 
 
 def test_adjacent_dicom_setting_true():
-    dcm2niix = dcm2niixpy.dcm2niix.DCM2NIIX()
+    dcm2niix = dcm2niixpy.DCM2NIIX()
 
     dcm2niix.adjacent_dicoms = True
 
@@ -38,7 +38,7 @@ def test_adjacent_dicom_setting_true():
 
 
 def test_adjacent_dicom_setting_y():
-    dcm2niix = dcm2niixpy.dcm2niix.DCM2NIIX()
+    dcm2niix = dcm2niixpy.DCM2NIIX()
 
     dcm2niix.adjacent_dicoms = "y"
 
@@ -46,7 +46,7 @@ def test_adjacent_dicom_setting_y():
 
 
 def test_adjacent_dicom_setting_false():
-    dcm2niix = dcm2niixpy.dcm2niix.DCM2NIIX()
+    dcm2niix = dcm2niixpy.DCM2NIIX()
 
     dcm2niix.adjacent_dicoms = False
 
@@ -54,7 +54,7 @@ def test_adjacent_dicom_setting_false():
 
 
 def test_adjacent_dicom_setting_n():
-    dcm2niix = dcm2niixpy.dcm2niix.DCM2NIIX()
+    dcm2niix = dcm2niixpy.DCM2NIIX()
 
     dcm2niix.adjacent_dicoms = "n"
 

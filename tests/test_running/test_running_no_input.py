@@ -1,4 +1,4 @@
-import dcm2niixpy.dcm2niix
+import dcm2niixpy
 
 # def test_standard_run():
 #     dcm2niix = dcm2niixpy.dcm2niix.DCM2NIIX()
