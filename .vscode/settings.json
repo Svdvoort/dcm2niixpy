@@ -15,10 +15,9 @@
   ],
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
-  "restructuredtext.confPath": "${workspaceFolder}/docs/source",
   "python.venvFolders": [
     "${workspaceFolder}/.venv"
   ],
   "esbonio.server.enabled": true,
-  "esbonio.sphinx.confDir": "/home/sebastian/Repos/dcm2niixpy/docs/source"
+  "esbonio.sphinx.confDir": "${workspaceFolder}/docs/",
 }
