@@ -1361,14 +1361,13 @@ typing-extensions = ">=3.7.4"
 
 [[package]]
 name = "unimport"
-version = "0.10.0"
-description = "attr: unimport.constants.DESCRIPTION"
+version = "0.11.1"
+description = "attr: unimport.__description__"
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-importlib_metadata = {version = ">=0.12", markers = "python_version < \"3.8\""}
 libcst = [
     {version = ">=0.3.0", markers = "python_version <= \"3.8\""},
     {version = ">=0.3.7", markers = "python_version >= \"3.9\""},
@@ -1450,7 +1449,7 @@ docs = ["rst.linker (>=1.9)", "jaraco.packaging (>=8.2)", "sphinx"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.0,<4.0"
-content-hash = "24cb8c701d4479f79971b74493eb26db52a0b765042ab6e2793254c45f4b28e3"
+content-hash = "77a014d0832e0152308a0246bde92e113a1f49e5f39e893667b36d7424a2baf5"
 
 [metadata.files]
 alabaster = [
@@ -2146,7 +2145,7 @@ typing-inspect = [
     {file = "typing_inspect-0.7.1.tar.gz", hash = "sha256:047d4097d9b17f46531bf6f014356111a1b6fb821a24fe7ac909853ca2a782aa"},
 ]
 unimport = [
-    {file = "unimport-0.10.0.tar.gz", hash = "sha256:df9e6f05452155550e039565dd494d5ddec4a4fffe29deed92735320d5cd91ca"},
+    {file = "unimport-0.11.1.tar.gz", hash = "sha256:c9c7a5f8950bc75bbd6d829d9e20623dc8a23d301fac0f72a462514a7f758d01"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.8-py2.py3-none-any.whl", hash = "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed"},
