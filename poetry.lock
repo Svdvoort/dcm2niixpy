@@ -499,11 +499,15 @@ test = ["pytest-cov"]
 
 [[package]]
 name = "flake8-logging-format"
-version = "0.6.0"
-description = "Flake8 extension to validate (lack of) logging format strings"
+version = "0.7.4"
+description = ""
 category = "dev"
 optional = false
 python-versions = "*"
+
+[package.extras]
+lint = ["flake8"]
+test = ["pytest", "pytest-cov", "pyhamcrest"]
 
 [[package]]
 name = "flake8-markdown"
@@ -1446,7 +1450,7 @@ docs = ["rst.linker (>=1.9)", "jaraco.packaging (>=8.2)", "sphinx"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.0,<4.0"
-content-hash = "8612f4df57f7e48528dd43bd709708b22089b477ce31f1293cf2411dd2909710"
+content-hash = "24cb8c701d4479f79971b74493eb26db52a0b765042ab6e2793254c45f4b28e3"
 
 [metadata.files]
 alabaster = [
@@ -1683,7 +1687,7 @@ flake8-isort = [
     {file = "flake8_isort-4.2.0-py3-none-any.whl", hash = "sha256:5b87630fb3719bf4c1833fd11e0d9534f43efdeba524863e15d8f14a7ef6adbf"},
 ]
 flake8-logging-format = [
-    {file = "flake8-logging-format-0.6.0.tar.gz", hash = "sha256:ca5f2b7fc31c3474a0aa77d227e022890f641a025f0ba664418797d979a779f8"},
+    {file = "flake8-logging-format-0.7.4.tar.gz", hash = "sha256:d867b46a8a2da5d6b70aa115022a104cf6dae6a671637aae2ef3eb6eac4235dd"},
 ]
 flake8-markdown = [
     {file = "flake8-markdown-0.3.0.tar.gz", hash = "sha256:5b54f143c9568da11a9d74ce5e580e96685fe758a14933f140c6d7006041fafd"},
