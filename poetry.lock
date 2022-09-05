@@ -860,11 +860,11 @@ flake8 = ">3.0.0"
 
 [[package]]
 name = "pathspec"
-version = "0.9.0"
+version = "0.10.1"
 description = "Utility library for gitignore style pattern matching of file paths."
 category = "dev"
 optional = false
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+python-versions = ">=3.7"
 
 [[package]]
 name = "pep8-naming"
@@ -1355,11 +1355,11 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "typing-extensions"
-version = "4.3.0"
-description = "Backported and Experimental Type Hints for Python 3.7+"
+version = "3.10.0.2"
+description = "Backported and Experimental Type Hints for Python 3.5+"
 category = "dev"
 optional = false
-python-versions = ">=3.7"
+python-versions = "*"
 
 [[package]]
 name = "typing-inspect"
@@ -1375,20 +1375,20 @@ typing-extensions = ">=3.7.4"
 
 [[package]]
 name = "unimport"
-version = "0.11.1"
-description = "attr: unimport.__description__"
+version = "0.11.3"
+description = "A linter, formatter for finding and removing unused import statements."
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
 libcst = [
-    {version = ">=0.3.0", markers = "python_version <= \"3.8\""},
-    {version = ">=0.3.7", markers = "python_version >= \"3.9\""},
+    {version = ">=0.3.0,<1", markers = "python_version <= \"3.8\""},
+    {version = ">=0.3.7,<1", markers = "python_version >= \"3.9\""},
 ]
-pathspec = ">=0.5.0"
-toml = ">=0.9.0"
-typing-extensions = {version = ">=3.7.4", markers = "python_version < \"3.8\""}
+pathspec = {version = ">=0.10.1,<1", markers = "python_version >= \"3.7\""}
+toml = ">=0.9.0,<1"
+typing-extensions = {version = ">=3.7.4,<4", markers = "python_version < \"3.8\""}
 
 [package.extras]
 dev = ["pytest (==6.2.4)", "pytest-cov (==2.12.1)", "semantic-version (==2.8.5)"]
@@ -1463,7 +1463,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.0,<4.0"
-content-hash = "72c6a83ae706a7f347e4270ac2cf36b3999f0694347a66019fe694f35e26df07"
+content-hash = "89ef332af6b63b841068a599880d8971ec78a2f5563c0900f5e32650ec6794d3"
 
 [metadata.files]
 alabaster = [
@@ -1915,8 +1915,8 @@ pandas-vet = [
     {file = "pandas_vet-0.2.3-py3-none-any.whl", hash = "sha256:349e4240399ead316f64f9afc8e94a5bd5cfff45d7f448c5c22989e86c4ac782"},
 ]
 pathspec = [
-    {file = "pathspec-0.9.0-py2.py3-none-any.whl", hash = "sha256:7d15c4ddb0b5c802d161efc417ec1a2558ea2653c2e8ad9c19098201dc1c993a"},
-    {file = "pathspec-0.9.0.tar.gz", hash = "sha256:e564499435a2673d586f6b2130bb5b95f04a3ba06f81b8f895b651a3c76aabb1"},
+    {file = "pathspec-0.10.1-py3-none-any.whl", hash = "sha256:46846318467efc4556ccfd27816e004270a9eeeeb4d062ce5e6fc7a87c573f93"},
+    {file = "pathspec-0.10.1.tar.gz", hash = "sha256:7ace6161b621d31e7902eb6b5ae148d12cfd23f4a249b9ffb6b9fee12084323d"},
 ]
 pep8-naming = [
     {file = "pep8-naming-0.13.2.tar.gz", hash = "sha256:93eef62f525fd12a6f8c98f4dcc17fa70baae2f37fa1f73bec00e3e44392fa48"},
@@ -2159,8 +2159,9 @@ typed-ast = [
     {file = "typed_ast-1.5.2.tar.gz", hash = "sha256:525a2d4088e70a9f75b08b3f87a51acc9cde640e19cc523c7e41aa355564ae27"},
 ]
 typing-extensions = [
-    {file = "typing_extensions-4.3.0-py3-none-any.whl", hash = "sha256:25642c956049920a5aa49edcdd6ab1e06d7e5d467fc00e0506c44ac86fbfca02"},
-    {file = "typing_extensions-4.3.0.tar.gz", hash = "sha256:e6d2677a32f47fc7eb2795db1dd15c1f34eff616bcaf2cfb5e997f854fa1c4a6"},
+    {file = "typing_extensions-3.10.0.2-py2-none-any.whl", hash = "sha256:d8226d10bc02a29bcc81df19a26e56a9647f8b0a6d4a83924139f4a8b01f17b7"},
+    {file = "typing_extensions-3.10.0.2-py3-none-any.whl", hash = "sha256:f1d25edafde516b146ecd0613dabcc61409817af4766fbbcfb8d1ad4ec441a34"},
+    {file = "typing_extensions-3.10.0.2.tar.gz", hash = "sha256:49f75d16ff11f1cd258e1b988ccff82a3ca5570217d7ad8c5f48205dd99a677e"},
 ]
 typing-inspect = [
     {file = "typing_inspect-0.7.1-py2-none-any.whl", hash = "sha256:b1f56c0783ef0f25fb064a01be6e5407e54cf4a4bf4f3ba3fe51e0bd6dcea9e5"},
@@ -2168,7 +2169,7 @@ typing-inspect = [
     {file = "typing_inspect-0.7.1.tar.gz", hash = "sha256:047d4097d9b17f46531bf6f014356111a1b6fb821a24fe7ac909853ca2a782aa"},
 ]
 unimport = [
-    {file = "unimport-0.11.1.tar.gz", hash = "sha256:c9c7a5f8950bc75bbd6d829d9e20623dc8a23d301fac0f72a462514a7f758d01"},
+    {file = "unimport-0.11.3.tar.gz", hash = "sha256:4182639dca2de4e9671f9bb3d1f5ee50d88047414ba5db007b53ef77bf321672"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.8-py2.py3-none-any.whl", hash = "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed"},
