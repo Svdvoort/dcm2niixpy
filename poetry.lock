@@ -1375,7 +1375,7 @@ typing-extensions = ">=3.7.4"
 
 [[package]]
 name = "unimport"
-version = "0.11.3"
+version = "0.12.1"
 description = "A linter, formatter for finding and removing unused import statements."
 category = "dev"
 optional = false
@@ -1391,8 +1391,8 @@ toml = ">=0.9.0,<1"
 typing-extensions = {version = ">=3.7.4,<4", markers = "python_version < \"3.8\""}
 
 [package.extras]
-dev = ["pytest (==6.2.4)", "pytest-cov (==2.12.1)", "semantic-version (==2.8.5)"]
 docs = ["mkdocs (==1.3.0)", "mkdocs-git-revision-date-localized-plugin (==1.0.1)", "mkdocs-markdownextradata-plugin (==0.2.5)", "mkdocs-material (==8.3.6)", "mkdocs-minify-plugin (==0.5.0)"]
+test = ["pytest (==6.2.4)", "pytest-cov (==2.12.1)", "semantic-version (==2.8.5)"]
 
 [[package]]
 name = "urllib3"
@@ -1463,7 +1463,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.0,<4.0"
-content-hash = "8625dbbe612609bcd21a73022cc41906c1013bcd025e9009f83e652adcda77dc"
+content-hash = "9c492c9f051249d6210b96c979187a40285fe71fc663fd48830a0913c7717baa"
 
 [metadata.files]
 alabaster = [
@@ -2176,7 +2176,8 @@ typing-inspect = [
     {file = "typing_inspect-0.7.1.tar.gz", hash = "sha256:047d4097d9b17f46531bf6f014356111a1b6fb821a24fe7ac909853ca2a782aa"},
 ]
 unimport = [
-    {file = "unimport-0.11.3.tar.gz", hash = "sha256:4182639dca2de4e9671f9bb3d1f5ee50d88047414ba5db007b53ef77bf321672"},
+    {file = "unimport-0.12.1-py3-none-any.whl", hash = "sha256:90c7eee542b3cef404ec9f39cc9bf5f14412b31b8d5654b38eba2ceb0ce47986"},
+    {file = "unimport-0.12.1.tar.gz", hash = "sha256:fb6238efdd9e1b1f2e433dfd9afe060ea4c7ce0056d530443abdd6b66a868e39"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.8-py2.py3-none-any.whl", hash = "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed"},
