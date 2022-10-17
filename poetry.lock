@@ -43,7 +43,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 dev = ["cloudpickle", "coverage[toml] (>=5.0.2)", "furo", "hypothesis", "mypy", "pre-commit", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six", "sphinx", "sphinx-notfound-page", "zope.interface"]
 docs = ["furo", "sphinx", "sphinx-notfound-page", "zope.interface"]
 tests = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six", "zope.interface"]
-tests_no_zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six"]
+tests-no-zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "six"]
 
 [[package]]
 name = "babel"
@@ -104,7 +104,7 @@ optional = false
 python-versions = ">=3.5.0"
 
 [package.extras]
-unicode_backport = ["unicodedata2"]
+unicode-backport = ["unicodedata2"]
 
 [[package]]
 name = "click"
@@ -610,7 +610,7 @@ flake8 = "*"
 
 [[package]]
 name = "flake8-requirements"
-version = "1.7.1"
+version = "1.7.2"
 description = "Package requirements checker, plugin for flake8"
 category = "dev"
 optional = false
@@ -737,9 +737,9 @@ python-versions = ">=3.6.1,<4.0"
 
 [package.extras]
 colors = ["colorama (>=0.4.3,<0.5.0)"]
-pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
+pipfile-deprecated-finder = ["pipreqs", "requirementslib"]
 plugins = ["setuptools"]
-requirements_deprecated_finder = ["pip-api", "pipreqs"]
+requirements-deprecated-finder = ["pip-api", "pipreqs"]
 
 [[package]]
 name = "jinja2"
@@ -1125,7 +1125,7 @@ urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
-use_chardet_on_py3 = ["chardet (>=3.0.2,<5)"]
+use-chardet-on-py3 = ["chardet (>=3.0.2,<5)"]
 
 [[package]]
 name = "restructuredtext-lint"
@@ -1220,7 +1220,7 @@ Sphinx = ">=4"
 
 [package.extras]
 testing = ["covdefaults (>=2)", "coverage (>=6)", "diff-cover (>=6.4)", "nptyping (>=1,<2)", "pytest (>=6)", "pytest-cov (>=3)", "sphobjinv (>=2)", "typing-extensions (>=3.5)"]
-type_comments = ["typed-ast (>=1.4.0)"]
+type-comments = ["typed-ast (>=1.4.0)"]
 
 [[package]]
 name = "sphinx-rtd-theme"
@@ -1464,7 +1464,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.0,<4.0"
-content-hash = "06ce9543d587d88afa78de34969d46084ed39baac67c4d8eddc0a819b5b0ca6a"
+content-hash = "f82cf9349a863379e28fed6887cd1758266b5f45898f8d7d4f49d1ce8e923668"
 
 [metadata.files]
 alabaster = [
@@ -1742,7 +1742,7 @@ flake8-quotes = [
     {file = "flake8-quotes-3.3.1.tar.gz", hash = "sha256:633adca6fb8a08131536af0d750b44d6985b9aba46f498871e21588c3e6f525a"},
 ]
 flake8-requirements = [
-    {file = "flake8_requirements-1.7.1-py2.py3-none-any.whl", hash = "sha256:b07619fa8a1b220a1271969e840ab51d0d6c9c7434cd9a1b3e3d8b6862e7e8b4"},
+    {file = "flake8_requirements-1.7.2-py2.py3-none-any.whl", hash = "sha256:ea0305f7a362d515f0863863dec08d39e5de1dfdd3dccf533d02ef3aba07cda3"},
 ]
 flake8-rst = [
     {file = "flake8_rst-0.8.0-py3-none-any.whl", hash = "sha256:ceabbafbad817e4d22c7836c06c9cf559e394ca89d8ae73155dec81302890d44"},
