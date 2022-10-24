@@ -5,7 +5,7 @@ sphinx==3.3.0
 sphinx-autodoc-typehints==1.11.1
 recommonmark==0.6.0
 m2r2==0.3.3
-tomlkit==0.11.4
+tomlkit==0.11.5
 
 # Dependencies of our project:
 typing-extensions==4.3.0
