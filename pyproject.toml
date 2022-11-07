@@ -48,7 +48,7 @@ unimport = "^0.12.1"
 Sphinx = "^4.3.2"
 sphinx-autodoc-typehints = "^1.17.1"
 recommonmark = "^0.7.1"
-sphinx_rtd_theme = "^1.0.0"
+sphinx_rtd_theme = "^1.1.1"
 
 flake8 = "^4.0.1"
 flake8-2020 = "^1.6.1"
