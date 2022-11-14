@@ -1374,7 +1374,7 @@ typing-extensions = ">=3.7.4"
 
 [[package]]
 name = "unimport"
-version = "0.12.1"
+version = "0.12.2"
 description = "A linter, formatter for finding and removing unused import statements."
 category = "dev"
 optional = false
@@ -1462,7 +1462,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7.0,<4.0"
-content-hash = "e6c90f9f1b4af82510117de0c46d7181c6a9f76e7ed8875d9046588ef147c728"
+content-hash = "6ff43715d7e322ce52b3e1deffcdee73b0c10eaea5ae2b1438161b567497c10c"
 
 [metadata.files]
 alabaster = [
@@ -2174,8 +2174,8 @@ typing-inspect = [
     {file = "typing_inspect-0.7.1.tar.gz", hash = "sha256:047d4097d9b17f46531bf6f014356111a1b6fb821a24fe7ac909853ca2a782aa"},
 ]
 unimport = [
-    {file = "unimport-0.12.1-py3-none-any.whl", hash = "sha256:90c7eee542b3cef404ec9f39cc9bf5f14412b31b8d5654b38eba2ceb0ce47986"},
-    {file = "unimport-0.12.1.tar.gz", hash = "sha256:fb6238efdd9e1b1f2e433dfd9afe060ea4c7ce0056d530443abdd6b66a868e39"},
+    {file = "unimport-0.12.2-py3-none-any.whl", hash = "sha256:41f8b99f3e089db9262962e9641d687cc5e41957dc01a6a8eef86cd446bc25d1"},
+    {file = "unimport-0.12.2.tar.gz", hash = "sha256:5a0d429b1bc67267ada6b91fee1a1154fb0923adc8f897b4c1bdde58ab9ab61f"},
 ]
 urllib3 = [
     {file = "urllib3-1.26.8-py2.py3-none-any.whl", hash = "sha256:000ca7f471a233c2251c6c7023ee85305721bfdf18621ebff4fd17a8653427ed"},
