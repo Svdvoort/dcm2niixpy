@@ -92,9 +92,6 @@ flake8-variables-names = "^0.0.5"
 pep8-naming = "^0.13.2"
 pandas-vet = "^0.2.3"
 
-[tool.poetry.group.dev.dependencies]
-exceptiongroup = "^1.0.4"
-
 [tool.black]
 line-length = 100
 target-version = ['py36', 'py37', 'py38']
