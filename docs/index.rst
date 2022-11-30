@@ -6,7 +6,7 @@ Contents
 .. toctree::
   :maxdepth: 1
 
-  dcm2niixpy
+  pages/dcm2niixpy
 
 
 Indices and tables
