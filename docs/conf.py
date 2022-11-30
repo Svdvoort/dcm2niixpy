@@ -67,6 +67,8 @@ extensions = [
 autoclass_content = "class"
 autodoc_member_order = "bysource"
 
+autosummary_generate = True
+
 autodoc_member_order = "bysource"
 autodoc_default_flags = {
     "members": "",

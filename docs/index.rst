@@ -9,6 +9,10 @@ Contents
 
   pages/changelog.rst
 
+.. autosummary::
+   :toctree: _autosummary
+
+
 
 Indices and tables
 ------------------
