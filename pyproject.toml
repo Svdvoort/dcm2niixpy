@@ -27,7 +27,7 @@ classifiers = [
 python = ">=3.7.0,<4.0"
 spython = ">=0.1.12,<0.3.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^7.2.0"
 pytest-memprof = "^0.2.0"
 pytest-cov = "^4.0.0"
@@ -45,10 +45,7 @@ pre-commit = "^2.20.0"
 
 unimport = "^0.12.2"
 
-Sphinx = "^4.3.2"
-sphinx-autodoc-typehints = "^1.17.1"
 recommonmark = "^0.7.1"
-sphinx_rtd_theme = "^1.1.1"
 
 flake8 = "^4.0.1"
 flake8-2020 = "^1.6.1"
@@ -91,6 +88,13 @@ flake8-typing-imports = "^1.12.0"
 flake8-variables-names = "^0.0.5"
 pep8-naming = "^0.13.2"
 pandas-vet = "^0.2.3"
+
+[tool.poetry.group.docs.dependencies]
+tomlkit = "^0.11.6"
+m2r2 = "<0.3.3"
+sphinx = "<5"
+sphinx-autodoc-typehints = "<=1.18"
+sphinx-rtd-theme = "^1.1.1"
 
 [tool.black]
 line-length = 100
