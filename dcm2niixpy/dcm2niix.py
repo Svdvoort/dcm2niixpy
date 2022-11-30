@@ -224,10 +224,12 @@ class DCM2NIIX:
     @property
     def compression_level(self) -> int:
         """
-        gz compression level (1=fastest, 9=smallest)
+        gz compression level (1=fastest, 9=smallest).
+
+        Corresonds with '-1' through '-9' setting of dcm2niix.
 
         Returns:
-            int: compression level
+            int: compression level. Defaults to 6
         """
         return int(self.options["compression_level"])
 
@@ -266,7 +268,14 @@ class DCM2NIIX:
 
     @property
     def adjacent_dicoms(self) -> bool:
-        "Adjacent DICOMs (images from same series always in same folder) for faster conversion (n/y, default n)"
+        """
+        Whether all DICOMs are adjacent (images from same series are always in same folder).
+
+        Corresponds to '-a' setting of dcm2niix.
+
+        Returns:
+            bool: Whether all DICOMs are in same folder. Defaults to False
+        """
         settings_conversion = {"y": True, "n": False}
         return self._convert_settings(settings_conversion, self.options["-a"])
 
@@ -287,7 +296,16 @@ class DCM2NIIX:
 
     @property
     def bids_sidecar(self) -> str:
-        "BIDS sidecar (y/n/o [o=only: no NIfTI], default y)"
+        """
+        Whether to generate a bids sidecar.
+
+        y = yes, o = only bids sidecar, no nifti, n = no.
+
+        Corresponds to '-b' setting of dcm2niix
+
+        Returns:
+            str: the bids sidecar setting. Defaults to y
+        """
         return self.options["-b"]
 
     @bids_sidecar.setter
@@ -303,7 +321,16 @@ class DCM2NIIX:
 
     @property
     def anonymize_bids_sidecar(self) -> str:
-        "anonymize BIDS (y/n, default y)"
+        """
+        Whether to anonymize the bids sidecar.
+
+        y = yes, n = no.
+
+        Corresponds to '-ba' setting of dcm2niix.
+
+        Returns:
+            str: the bids sidecar anonymization setting. Defaults to y
+        """
         return self.options["-ba"]
 
     @anonymize_bids_sidecar.setter
@@ -319,7 +346,16 @@ class DCM2NIIX:
 
     @property
     def comments_in_aux(self) -> str:
-        "comment stored in NIfTI aux_file (provide up to 24 characters e.g. '-c first_visit')"
+        """
+        Whether to store comments in a NIfTI aux_file.
+
+        Provide up to 24 characters, e.g. first_visit.
+
+        Corresponds to '-c' setting of dcm2niix
+
+        Returns:
+            str: the aux setting. No default
+        """
         if "-c" in self.options:
             return self.options["-c"]
         else:
@@ -331,7 +367,16 @@ class DCM2NIIX:
 
     @property
     def directory_search_depth(self) -> str:
-        "directory search depth. Convert DICOMs in sub-folders of in_folder? (0..9, default 5)"
+        """
+        Set the directory search depth.
+
+        Value can range from 0 to 9.
+
+        Corresponds to '-d' setting of dcm2niix
+
+        Returns:
+            str: The directory search depth. Defaults to 5
+        """
         return self.options["-d"]
 
     @directory_search_depth.setter
@@ -358,7 +403,16 @@ class DCM2NIIX:
 
     @property
     def export_as_nrrd(self) -> str:
-        "export as NRRD instead of NIfTI (y/n, default n)"
+        """
+        Whether to save the file as NRRD instead of NIfTI.
+
+        y = yes, n = no.
+
+        Corresponds to '-e' setting of dcm2niix.
+
+        Returns:
+            str: Whether to save as NRRD. Defaults to n.
+        """
         return self.options["-e"]
 
     @export_as_nrrd.setter
@@ -374,7 +428,37 @@ class DCM2NIIX:
 
     @property
     def filename(self) -> str:
-        "filename (%a=antenna (coil) name, %b=basename, %c=comments, %d=description, %e=echo number, %f=folder name, %i=ID of patient, %j=seriesInstanceUID, %k=studyInstanceUID, %m=manufacturer, %n=name of patient, %o=mediaObjectInstanceUID, %p=protocol, %r=instance number, %s=series number, %t=time, %u=acquisition number, %v=vendor, %x=study ID; %z=sequence name; default '%f_%p_%t_%s')"
+        """
+        The filename used to save the file.
+
+        The following parameters can be used and will be replaced in the string:
+
+            - %a=antenna (coil) name
+            - %b=basename
+            - %c=comments
+            - %d=description
+            - %e=echo number
+            - %f=folder name
+            - %i=ID of patient
+            - %j=seriesInstanceUID
+            - %k=studyInstanceUID
+            - %m=manufacturer
+            - %n=name of patient
+            - %o=mediaObjectInstanceUID
+            - %p=protocol
+            - %r=instance number
+            - %s=series number
+            - %t=time
+            - %u=acquisition number
+            - %v=vendor
+            - %x=study ID
+            - %z=sequence name
+
+        Corresponds to '-f' setting of dcm2niix.
+
+        Returns:
+            str: The filename. Defaults to %f_%p_%t_%s
+        """
         return self.options["-f"]
 
     @filename.setter
