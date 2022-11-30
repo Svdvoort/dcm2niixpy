@@ -5,13 +5,8 @@ Contents
 
 .. toctree::
   :maxdepth: 1
-  :caption: Changelog
 
-  pages/changelog.rst
-
-.. autosummary::
-   :toctree: _autosummary
-
+  dcm2niixpy
 
 
 Indices and tables
