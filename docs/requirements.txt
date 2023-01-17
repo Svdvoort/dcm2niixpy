@@ -2,7 +2,7 @@
 # to generate documentation.
 
 sphinx==6.1.3
-sphinx-autodoc-typehints==1.21.0
+sphinx-autodoc-typehints==1.21.1
 recommonmark==0.7.1
 m2r2==0.3.3
 tomlkit==0.11.6
