@@ -662,14 +662,14 @@ importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
 
 [[package]]
 name = "flake8-executable"
-version = "2.1.2"
+version = "2.1.3"
 description = "A Flake8 plugin for checking executable permissions and shebangs."
 category = "dev"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "flake8-executable-2.1.2.tar.gz", hash = "sha256:ecc80a70d8e4ac21d5b2a27c730770b2a4b96542ee4d82b9be5bad0e22fd5a70"},
-    {file = "flake8_executable-2.1.2-py3-none-any.whl", hash = "sha256:871f88a612bb9e816e00a37c044f17fe772269ac3f39f01aeecebdfeb40dba7b"},
+    {file = "flake8-executable-2.1.3.tar.gz", hash = "sha256:619fe023e00c3d8e5113521d7200e1ebb04587c12d157f9a2fb167feb8cae66b"},
+    {file = "flake8_executable-2.1.3-py3-none-any.whl", hash = "sha256:f0a66c97c3b99ce63bc1f01ce602d6bd048e4fc5dc0d7a13be2bfa3deb023a34"},
 ]
 
 [package.dependencies]
